@@ -1,0 +1,19 @@
+/* Botão - Removido width fixo para ele se adaptar ao container */
+.button {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease; /* Transição suave como em sites profissionais */
+    width: 100%; /* Ocupa o espaço do container pai */
+    max-width: 400px;
+}
+
+.button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px); /* Efeito de elevação */
+}

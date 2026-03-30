@@ -1,0 +1,16 @@
+/* Input - Melhorando o contraste e o foco */
+.task, .container .body input {
+    width: 100%;
+    max-width: 400px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    font-size: 16px;
+    color: var(--text-main);
+    outline: none;
+}
+
+.task:focus, .container .body input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); /* Ring de foco azul */
+}

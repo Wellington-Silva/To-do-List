@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Fundamental para layouts previsíveis */
+  font-family: "Work Sans", sans-serif;
+  -webkit-font-smoothing: antialiased; /* Deixa as fontes mais nítidas no Mac/Chrome */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Variáveis (Single Source of Truth) */
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1e40af;
+    --bg-dark: #06151A;
+    --text-main: #f3f4f6; /* Ajustei para um cinza claro para ler no fundo escuro */
+    --text-white: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --radius: 8px;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh; /* Garante que o fundo cubra a tela toda */
+  line-height: 1.5;
+}
+
+/* Links e botões costumam ter estilos chatos por padrão */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input {
+  font: inherit; /* Garante que usem a Work Sans em vez da fonte padrão do sistema */
+}

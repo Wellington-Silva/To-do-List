@@ -1,0 +1,29 @@
+header {
+    background-color: #1e3a8a; /* Um azul mais profundo e profissional */
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+    padding: 24px 16px;
+    /* Uma borda sutil apenas na parte de baixo em vez de em volta de tudo */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-family: "Orbitron", sans-serif;
+    color: #FFFFFF;
+    font-size: 28px; /* Um pouco menor para mobile-first */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Dá um ar mais tecnológico/clean */
+    margin: 0;
+    text-align: center;
+}
+
+/* Ajuste para telas maiores (Desktop) */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 36px;
+    }
+}
