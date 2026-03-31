@@ -15,6 +15,9 @@
     width: 100%;
     max-width: 400px;
     margin-top: 5%;
+    background-color: #e9e7e7;
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .container .body .label {
