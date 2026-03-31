@@ -2,6 +2,9 @@ import './App.css';
 import Home from "./pages/Home";
 import { useState } from 'react';
 import AddTask from './pages/AddTask';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import Register from './pages/Register';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 export default function App() {
@@ -30,12 +33,18 @@ export default function App() {
         <BrowserRouter>
             <nav>
                 <Link to="/">Home | </Link>
-                <Link to="/add-task">Cadastrar</Link>
+                <Link to="/add-task">Tarefa | </Link>
+                <Link to="/login">Login | </Link>
+                <Link to="/profile">Perfil | </Link>
+                <Link to="/register">Registrar</Link>
             </nav>
             <Routes>
                 <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} />} />
                 <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/register" element={<Register />} />
             </Routes>
         </BrowserRouter>
     );
-}
+};
