@@ -16,15 +16,24 @@ export default function App() {
         setTasks([...tasks, taskWithId]);
     };
 
+    const handleToggleTask = (id: number) => {
+        const updatedTasks = tasks.map((task) => {
+            if (task.id === id) {
+                return { ...task, completed: !task.completed }
+            }
+            return task;
+        });
+        setTasks(updatedTasks);
+    };
+
     return (
         <BrowserRouter>
             <nav>
                 <Link to="/">Home | </Link>
                 <Link to="/add-task">Cadastrar</Link>
             </nav>
-
             <Routes>
-                <Route path="/" element={<Home tasks={tasks} />} />
+                <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} />} />
                 <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
             </Routes>
         </BrowserRouter>
