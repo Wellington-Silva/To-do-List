@@ -1,6 +1,7 @@
 import './styles.css';
 import { Card } from '../../components/Card';
 import { Title } from '../../components/Title';
+import { Footer } from '../../components/Footer';
 
 function Home({ tasks, onToggleTask }: { tasks: any[]; onToggleTask: (id: number) => void }) {
     return (
@@ -18,6 +19,7 @@ function Home({ tasks, onToggleTask }: { tasks: any[]; onToggleTask: (id: number
                     />
                 ))}
             </div>
+            <Footer name='Wellington-Solutions.'/>
         </div>
     );
 }

@@ -3,6 +3,7 @@ import { Title } from '../../components/Title';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
 import { useNavigate } from 'react-router-dom';
+import { Footer } from '../../components/Footer';
 import { Button } from '../../components/Button';
 
 type LoginTypes = {
@@ -48,6 +49,7 @@ function Login({ onLoginSubmit }: { onLoginSubmit: (data: LoginTypes) => boolean
 
                 <Button name='Entrar' />
             </form>
+            <Footer name='Wellington-Solutions.'/>
         </div>
     );
 };

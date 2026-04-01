@@ -1,4 +1,4 @@
-.container {
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     padding: 20px;
 }
 
-.container .body {
+.form .body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -20,7 +20,7 @@
     padding: 20px;
 }
 
-.container .body .label {
+.form .body .label {
     font-weight: 500;
     color: #4b5563;
     font-size: 14px;

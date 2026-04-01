@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Title } from '../../components/Title';
 import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
+import { Footer } from '../../components/Footer';
 import { Button } from '../../components/Button';
 
 type userType = {
@@ -94,6 +95,7 @@ function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout
                     </>
                 )}
             </div>
+            <Footer name='Wellington-Solutions.'/>
         </div>
     );
 };

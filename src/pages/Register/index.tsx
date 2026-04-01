@@ -2,6 +2,7 @@ import './styles.css';
 import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
 import { Title } from '../../components/Title';
+import { Footer } from '../../components/Footer';
 import { Button } from '../../components/Button';
 
 type userType = {
@@ -57,6 +58,7 @@ function Register ({ onEventSubmit }: { onEventSubmit: (user: userType) => void 
                 
                 <Button name='Registrar' />
             </form>
+            <Footer name='Wellington-Solutions.'/>
         </div>
     );
 };
