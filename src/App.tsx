@@ -36,6 +36,12 @@ export default function App() {
         setUser(userRegistered);
     };
 
+    const handleUpdateUser = (updatedUser: any) => {
+        setUser(updatedUser);
+        localStorage.setItem('user_session', JSON.stringify(updatedUser)); // Salva no "banco"
+        console.log("Usuário atualizado com sucesso!");
+    };
+
     const handleLogout = () => {
         setUser(null);
         console.log("Usuário deslogado");
@@ -80,7 +86,7 @@ export default function App() {
                 <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} />} />
                 <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
                 <Route path="/login" element={<Login onLoginSubmit={handleLoginUser} />} />
-                <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} />} />
+                <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} onUpdate= {handleUpdateUser} />} />
                 <Route path="/register" element={<Register onEventSubmit={handleRegisterUser} />} />
             </Routes>
         </BrowserRouter>

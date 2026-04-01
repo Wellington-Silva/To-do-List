@@ -1,5 +1,3 @@
-
-
 .data {
     display: flex;
     flex-direction: column;
@@ -10,4 +8,44 @@
     margin-top: 3%;
     background-color: #e9e7e7;
     color: black;
+}
+
+.data .button-logout {
+    background-color: #ef4444;
+    color: #FFFFFF;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.data .button-logout:hover {
+    background-color: #ef4444cc;
+}
+
+.data .button-edit {
+    background-color: #f6a53b;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.data .button-edit:hover {
+    background-color: #f6a53bcc;
+}
+
+.button-cancel {
+    background-color: #6b7280;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.button-cancel:hover {
+    background-color: #6b7280cc;
 }
