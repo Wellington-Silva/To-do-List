@@ -8,9 +8,9 @@ function Home({ tasks, onToggleTask }: { tasks: any[]; onToggleTask: (id: number
         <div className="container">
             <Title title="To Do List" />
             <div className="card-container">
-                {tasks.map((task) => (
+                {tasks.map((task, index) => (
                     <Card
-                        key={task.id}
+                        key={task.id || index}
                         id={task.id}
                         title={task.title}
                         description={task.description}

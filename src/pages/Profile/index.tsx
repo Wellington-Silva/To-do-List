@@ -8,15 +8,15 @@ import { Footer } from '../../components/Footer';
 import { Button } from '../../components/Button';
 
 type userType = {
-    id: number;
+    id: string;
     name: string;
     cellphone: string;
     birthDate: string;
     email: string;
-    password: string;
 };
 
 function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout: () => void; onUpdate: (updatedUser: userType) => void }) {
+    const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
 
     if (!user) return <p>Carregando...</p>;
@@ -30,7 +30,6 @@ function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout
         );
     };
 
-    const navigate = useNavigate();
 
     const handleInternalLogout = () => {
         onLogout();
@@ -39,7 +38,7 @@ function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout
 
     const handleSave = (formData: FormData) => {
         const updatedData = {
-            ...user,
+            id: user.id,
             name: String(formData.get('name')),
             cellphone: String(formData.get('cellphone')),
             birthDate: String(formData.get('birthDate')),

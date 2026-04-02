@@ -11,30 +11,30 @@ type LoginTypes = {
     password: string;
 };
 
-function Login({ onLoginSubmit }: { onLoginSubmit: (data: LoginTypes) => boolean }) {
+function Login({ onLoginSubmit }: { onLoginSubmit: (data: LoginTypes) => Promise<boolean> }) {
     const navigate = useNavigate();
 
-    function handleLogin(formData: FormData) {
+    async function handleLogin(formData: FormData) {
         const email = formData.get("email");
         const password = formData.get("password");
 
         if (!email || !password) {
             alert("Por favor, preencha todos os campos!");
             return;
-        };
+        }
 
         const loginData: LoginTypes = {
             email: String(email),
             password: String(password)
         };
 
-        const isOk = onLoginSubmit(loginData);
+        const isOk = await onLoginSubmit(loginData);
         
         if (isOk) {
             console.log("Login realizado com sucesso!");
             navigate('/profile');
-        };
-    };
+        }
+    }
 
     return (
         <div className="container">
@@ -49,9 +49,10 @@ function Login({ onLoginSubmit }: { onLoginSubmit: (data: LoginTypes) => boolean
 
                 <Button name='Entrar' />
             </form>
+            
             <Footer name='Wellington-Solutions.'/>
         </div>
     );
-};
+}
 
 export default Login;

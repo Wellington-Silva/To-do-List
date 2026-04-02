@@ -1,4 +1,5 @@
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
 import { Label } from '../../components/Label';
 import { Input } from '../../components/Input';
 import { Title } from '../../components/Title';
@@ -14,6 +15,7 @@ type userType = {
 };
 
 function Register ({ onEventSubmit }: { onEventSubmit: (user: userType) => void }) {
+    const navigate = useNavigate();
 
     function handleSubmit(formData: FormData) {
         const name = formData.get('name');
@@ -34,6 +36,7 @@ function Register ({ onEventSubmit }: { onEventSubmit: (user: userType) => void 
         };
 
         onEventSubmit(user);
+        navigate('/profile');
     };
 
     return (
