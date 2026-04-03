@@ -40,9 +40,9 @@
 }
 
 .button-icon-delete {
-    position: absolute; /* Ele flutua sobre os outros elementos */
-    top: 10px;          /* Distância do topo */
-    right: 10px;        /* Distância da direita */
+    position: absolute;
+    top: 10px;
+    right: 10px;
     
     background: transparent;
     border: none;
@@ -65,10 +65,9 @@
 }
 
 .icon-trash {
-    color: #b0b0b0; /* Cinza suave para não poluir visualmente */
+    color: #b0b0b0;
 }
 
-/* Garanta que o conteúdo (título/descrição) não fique embaixo do ícone */
 .card-content {
-    margin-right: 30px; /* Abre espaço na direita para a lixeira */
+    margin-right: 30px;
 }
