@@ -72,7 +72,6 @@ export default function App() {
     };
 
     const handleToggleTask = async (id: number) => {
-        console.log("ID saindo do Front:", id);
         const taskToUpdate = tasks.find(t => t.id === id);
         if (!taskToUpdate) return;
 
@@ -82,13 +81,11 @@ export default function App() {
             const response = await apiRequest<any>(`/tasks/${id}`, {
                 method: "PUT",
                 body: JSON.stringify({
-                    completed: newStatus
+                    isCompleted: newStatus
                 })
             });
 
-            // Se o seu backend retorna a task atualizada no response.task ou direto no response:
             const updatedTask = response.task || response;
-
             const newTasks = tasks.map(task =>
                 task.id === id ? { ...task, ...updatedTask } : task
             );

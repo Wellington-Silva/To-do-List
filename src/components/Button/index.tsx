@@ -1,7 +1,13 @@
 import './styles.css';
 
-export function Button({ name }: { name: string }) {
+interface ButtonProps {
+    name: string;
+    onClick?: () => void | Promise<void>;
+    type?: "button" | "submit" | "reset"; 
+}
+
+export function Button({ name, onClick, type = "submit" }: ButtonProps) {
     return (
-        <button className='button' type="submit">{name}</button>
+        <button className='button' onClick={onClick} type={type}>{name}</button>
     );
 };

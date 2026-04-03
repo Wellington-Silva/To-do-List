@@ -7,6 +7,7 @@ import { Input } from '../../components/Input';
 import { Footer } from '../../components/Footer';
 import { Button } from '../../components/Button';
 
+// 1. Tipagem dos dados do usuário
 type userType = {
     id: string;
     name: string;
@@ -15,21 +16,36 @@ type userType = {
     email: string;
 };
 
-function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout: () => void; onUpdate: (updatedUser: userType) => void }) {
+// 2. Tipagem da resposta da API (Envelope)
+type LoginResponse = {
+    token: string;
+    user: userType;
+    message?: string;
+    error?: boolean;
+};
+
+// 3. Interface das Props do Componente
+interface ProfileProps {
+    user: userType | LoginResponse | any; // Aceita os dois formatos
+    onLogout: () => void;
+    onUpdate: (updatedUser: userType) => void;
+}
+
+function Profile({ user, onLogout, onUpdate }: ProfileProps) {
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
-
-    if (!user) return <p>Carregando...</p>;
 
     if (!user) {
         return (
             <div className="container">
                 <Title title="Perfil" />
-                <p>Nenhum usuário logado. Por favor, faça o cadastro.</p>
+                <p>Nenhum usuário logado. Por favor, faça o login.</p>
+                <Button name="Ir para Login" onClick={() => navigate('/login')} />
             </div>
         );
-    };
+    }
 
+    const userData: userType = user?.user || user;
 
     const handleInternalLogout = () => {
         onLogout();
@@ -37,8 +53,8 @@ function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout
     };
 
     const handleSave = (formData: FormData) => {
-        const updatedData = {
-            id: user.id,
+        const updatedData: userType = {
+            id: userData.id, // Usa o ID extraído corretamente
             name: String(formData.get('name')),
             cellphone: String(formData.get('cellphone')),
             birthDate: String(formData.get('birthDate')),
@@ -54,19 +70,18 @@ function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout
             <Title title="Perfil" />
             <div className="data">
                 {isEditing ? (
-                    // Formulário com valores iniciais (defaultValue)
                     <form action={handleSave} className="register-form">
                         <Label htmlFor="name">Nome</Label>
-                        <Input name="name" defaultValue={user.name} />
+                        <Input name="name" defaultValue={userData.name} />
 
                         <Label htmlFor="cellphone">Telefone</Label>
-                        <Input name="cellphone" defaultValue={user.cellphone} />
+                        <Input name="cellphone" defaultValue={userData.cellphone} />
 
                         <Label htmlFor="birthDate">Nascimento</Label>
-                        <Input type="date" name="birthDate" defaultValue={user.birthDate} />
+                        <Input type="date" name="birthDate" defaultValue={userData.birthDate} />
 
                         <Label htmlFor="email">Email</Label>
-                        <Input name="email" defaultValue={user.email} />
+                        <Input name="email" defaultValue={userData.email} />
 
                         <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
                             <Button name="Salvar Alterações" />
@@ -77,26 +92,28 @@ function Profile({ user, onLogout, onUpdate }: { user: userType | null; onLogout
                     </form>
                 ) : (
                     <>
-                        <p><strong>Nome:</strong> {user.name}</p>
-                        <p><strong>Email:</strong> {user.email}</p>
-                        <p><strong>Telefone:</strong> {user.cellphone}</p>
-                        <p><strong>Data de Nascimento:</strong> {user.birthDate}</p>
+                        <p><strong>Nome:</strong> {userData?.name || "Não informado"}</p>
+                        <p><strong>E-mail:</strong> {userData?.email || "Não informado"}</p>
+                        <p><strong>Celular:</strong> {userData?.cellphone || "Não informado"}</p>
+                        <p><strong>Nascimento:</strong> {userData?.birthDate || "Não informado"}</p>
 
-                        <button onClick={() => setIsEditing(true)} className="button-edit">
-                            Editar Perfil
-                        </button>
-                        <button
-                            onClick={handleInternalLogout}
-                            className="button-logout"
-                        >
-                            Sair da Conta
-                        </button>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
+                            <button onClick={() => setIsEditing(true)} className="button-edit">
+                                Editar Perfil
+                            </button>
+                            <button
+                                onClick={handleInternalLogout}
+                                className="button-logout"
+                            >
+                                Sair da Conta
+                            </button>
+                        </div>
                     </>
                 )}
             </div>
-            <Footer name='Wellington-Solutions.'/>
+            <Footer name='Wellington-Solutions.' />
         </div>
     );
-};
+}
 
 export default Profile;
