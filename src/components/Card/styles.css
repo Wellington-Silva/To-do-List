@@ -1,4 +1,5 @@
 .card {
+    position: relative;
     background-color: #0b2630;
     border-radius: var(--radius);
     border: 1px solid rgba(209, 212, 212, 0.2);
@@ -36,4 +37,38 @@
     font-size: 0.85rem;
     font-weight: 600;
     color: #ffffff;
+}
+
+.button-icon-delete {
+    position: absolute; /* Ele flutua sobre os outros elementos */
+    top: 10px;          /* Distância do topo */
+    right: 10px;        /* Distância da direita */
+    
+    background: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-icon-delete:hover {
+    background-color: #fee2e2;
+}
+
+.button-icon-delete:hover .icon-trash {
+    color: #d93025;
+}
+
+.icon-trash {
+    color: #b0b0b0; /* Cinza suave para não poluir visualmente */
+}
+
+/* Garanta que o conteúdo (título/descrição) não fique embaixo do ícone */
+.card-content {
+    margin-right: 30px; /* Abre espaço na direita para a lixeira */
 }

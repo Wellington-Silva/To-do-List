@@ -3,7 +3,7 @@ import { Card } from '../../components/Card';
 import { Title } from '../../components/Title';
 import { Footer } from '../../components/Footer';
 
-function Home({ tasks, onToggleTask }: { tasks: any[]; onToggleTask: (id: number) => void }) {
+function Home({ tasks, onToggleTask, onDelete }: { tasks: any[]; onToggleTask: (id: number) => void; onDelete: (id: string) => void }) {
     return (
         <div className="container">
             <Title title="To Do List" />
@@ -14,8 +14,9 @@ function Home({ tasks, onToggleTask }: { tasks: any[]; onToggleTask: (id: number
                         id={task.id}
                         title={task.title}
                         description={task.description}
-                        completed={task.completed}
-                        onToggle={() => onToggleTask(task.id)} 
+                        completed={task.isCompleted ?? task.completed ?? false}
+                        onToggle={() => onToggleTask(task.id)}
+                        onDelete={() => onDelete(task.id)}
                     />
                 ))}
             </div>

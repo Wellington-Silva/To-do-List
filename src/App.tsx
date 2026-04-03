@@ -16,7 +16,6 @@ export default function App() {
         const session = localStorage.getItem('user_session');
         if (session) {
             const userData = JSON.parse(session);
-            // Se userData existe e tem um ID (seja na raiz ou dentro de .user)
             if (userData && (userData.id || userData.user?.id)) {
                 setUser(userData);
             }
@@ -25,7 +24,6 @@ export default function App() {
 
     useEffect(() => {
         const loadTasks = async () => {
-            // Busca o ID e o Token não importa onde estejam no objeto
             const userId = user?.user?.id || user?.id;
             const token = user?.token;
 
@@ -45,7 +43,8 @@ export default function App() {
     }, [user]);
 
     const handleAddTask = async (newTask: any) => {
-        const userId = user?.user.id || user?.id;
+        console.log("ESTADO DO USUARIO NO MOMENTO DA TAREFA:", user);
+        const userId = user?.user?.id || user?.id;
 
         if (!userId) {
             alert("Erro: Usuário não identificado.");
@@ -61,7 +60,7 @@ export default function App() {
         try {
             const response = await apiRequest<any>('/tasks', {
                 method: 'POST',
-                body: JSON.stringify(taskWithUser) // Enviamos com o ID do Wellington
+                body: JSON.stringify(taskWithUser)
             });
 
             const createdTask = response.task || response;
@@ -75,25 +74,43 @@ export default function App() {
         const taskToUpdate = tasks.find(t => t.id === id);
         if (!taskToUpdate) return;
 
-        try {
-            const newStatus = !taskToUpdate.completed;
+        const statusAtual = taskToUpdate.isCompleted ?? taskToUpdate.completed ?? false;
+        const novoStatus = !statusAtual;
 
-            const response = await apiRequest<any>(`/tasks/${id}`, {
+        console.log(`Alterando tarefa ${id} de ${statusAtual} para ${novoStatus}`);
+
+        try {
+            await apiRequest<any>(`/tasks/${id}`, {
                 method: "PUT",
                 body: JSON.stringify({
-                    isCompleted: newStatus
+                    isCompleted: novoStatus
                 })
             });
 
-            const updatedTask = response.task || response;
-            const newTasks = tasks.map(task =>
-                task.id === id ? { ...task, ...updatedTask } : task
-            );
+            setTasks(prevTasks => prevTasks.map(task =>
+                task.id === id ? { ...task, isCompleted: novoStatus, completed: novoStatus } : task
+            ));
 
-            setTasks(newTasks);
         } catch (error) {
-            console.error("Erro ao atualizar tarefa:", error);
-            alert("Não foi possível salvar a alteração.");
+            console.error("Erro ao inverter status da tarefa:", error);
+            alert("Ops! O banco de dados não aceitou a mudança.");
+        }
+    };
+
+    const handleDeleteTask = async (id: string) => {
+        if (!window.confirm("Tem certeza que deseja excluir esta tarefa?")) return;
+
+        try {
+            await apiRequest(`/tasks/${id}`, {
+                method: "DELETE"
+            });
+
+            // Atualiza o estado local removendo a tarefa da lista
+            setTasks(prevTasks => prevTasks.filter(task => (task.id || task._id) !== id));
+
+        } catch (error) {
+            console.error("Erro ao deletar tarefa:", error);
+            alert("Não foi possível excluir a tarefa no servidor.");
         }
     };
 
@@ -105,8 +122,9 @@ export default function App() {
             });
 
             if (response && !response.error) {
-                localStorage.setItem('user_session', JSON.stringify(response));
                 setUser(response);
+                localStorage.setItem('user_session', JSON.stringify(response));
+                return response || response.error;
             }
         } catch (error) {
             console.error("Erro no cadastro:", error);
@@ -116,7 +134,7 @@ export default function App() {
 
     const handleUpdateUser = async (userData: any) => {
         try {
-            const response = await apiRequest<any>(`/user/${userData.id}`, {
+            const response = await apiRequest<any>(`/users/${userData.id}`, {
                 method: "PUT",
                 body: JSON.stringify(userData)
             });
@@ -125,7 +143,7 @@ export default function App() {
             const session = JSON.parse(localStorage.getItem('user_session') || '{}');
             const newSession = {
                 ...session,
-                user: response.user || response // Atualiza os dados, mas mantém o token
+                user: response.user || response
             };
 
             localStorage.setItem('user_session', JSON.stringify(newSession));
@@ -179,7 +197,7 @@ export default function App() {
                 )}
             </nav>
             <Routes>
-                <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} />} />
+                <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />} />
                 <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
                 <Route path="/login" element={<Login onLoginSubmit={handleLoginUser} />} />
                 <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} onUpdate={handleUpdateUser} />} />

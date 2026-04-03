@@ -1,8 +1,9 @@
 import './styles.css';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { Title } from '../../components/Title';
 import { Input } from '../../components/Input';
 import { Label } from '../../components/Label';
-import { useNavigate } from 'react-router-dom';
 import { Footer } from '../../components/Footer';
 import { Button } from '../../components/Button';
 
@@ -11,43 +12,66 @@ type LoginTypes = {
     password: string;
 };
 
-function Login({ onLoginSubmit }: { onLoginSubmit: (data: LoginTypes) => Promise<boolean> }) {
+interface LoginProps {
+    onLoginSubmit: (data: LoginTypes) => Promise<boolean>;
+}
+
+function Login({ onLoginSubmit }: LoginProps) {
     const navigate = useNavigate();
 
-    async function handleLogin(formData: FormData) {
-        const email = formData.get("email");
-        const password = formData.get("password");
+    const { 
+        register, 
+        handleSubmit, 
+        formState: { errors, isSubmitting } 
+    } = useForm<LoginTypes>();
 
-        if (!email || !password) {
-            alert("Por favor, preencha todos os campos!");
-            return;
-        }
-
-        const loginData: LoginTypes = {
-            email: String(email),
-            password: String(password)
-        };
-
-        const isOk = await onLoginSubmit(loginData);
-        
+    const onSubmit = async (data: LoginTypes) => {
+        const isOk = await onLoginSubmit(data);
         if (isOk) {
             console.log("Login realizado com sucesso!");
             navigate('/profile');
+        } else {
+            alert("E-mail ou senha incorretos.");
         }
-    }
+    };
 
     return (
         <div className="container">
             <Title title="Login" />
 
-            <form className="login-form" action={handleLogin}>
+            <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <Label htmlFor='email'>Email</Label>
-                <Input type='email' name='email' id='email' placeholder='Digite seu email' />
+                <Input 
+                    type='email' 
+                    placeholder='Digite seu email'
+                    {...register("email", { 
+                        required: "O e-mail é obrigatório",
+                        pattern: {
+                            value: /\S+@\S+\.\S+/,
+                            message: "Digite um e-mail válido"
+                        }
+                    })} 
+                />
+                {errors.email && <span className="error-message">{errors.email.message}</span>}
 
                 <Label htmlFor='password'>Senha</Label>
-                <Input type='password' name='password' id='password' placeholder='Digite sua senha' />
+                <Input 
+                    type='password' 
+                    placeholder='Digite sua senha'
+                    {...register("password", { 
+                        required: "A senha é obrigatória",
+                        minLength: {
+                            value: 8,
+                            message: "A senha deve ter no mínimo 8 caracteres"
+                        }
+                    })} 
+                />
+                {errors.password && <span className="error-message">{errors.password.message}</span>}
 
-                <Button name='Entrar' />
+                <Button 
+                    name={isSubmitting ? 'Entrando...' : 'Entrar'} 
+                    type="submit" 
+                />
             </form>
             
             <Footer name='Wellington-Solutions.'/>

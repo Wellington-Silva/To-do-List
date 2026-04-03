@@ -9,7 +9,7 @@ export async function apiRequest<T>(endpoint: string, options?: RequestInit): Pr
 
     if (token) {
         headers.set('Authorization', `Bearer ${token}`);
-    }
+    };
 
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         ...options,
@@ -18,7 +18,7 @@ export async function apiRequest<T>(endpoint: string, options?: RequestInit): Pr
 
     if (!response.ok) {
         throw new Error(`Erro: ${response.status}`);
-    }
+    };
 
     return await response.json();
 };

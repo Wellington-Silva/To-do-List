@@ -49,3 +49,15 @@
 .button-cancel:hover {
     background-color: #6b7280cc;
 }
+
+.error-message {
+    color: #d93025;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    font-weight: 500;
+    display: block;
+}
+
+input.input-error {
+    border: 1px solid #d93025;
+}
