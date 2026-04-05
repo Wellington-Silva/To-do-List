@@ -1,29 +1,76 @@
+/* Register/styles.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    padding: 40px 20px;
+    background-color: #121212; /* Fundo padrão do app */
+}
+
 .register-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    border-radius: 8px;
-    padding: 5%;
-    margin-top: 3%;
-    background-color: #e9e7e7;
-    color: black;
+    width: 100%;
+    max-width: 500px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    animation: slideUp 0.4s ease-out;
 }
 
 .register-form label {
-    font-weight: 500;
-    color: #4b5563;
-    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: -4px;
+    margin-top: 8px;
+}
+
+.register-form input {
+    margin-bottom: 4px;
 }
 
 .error-message {
-    color: #d93025;
-    font-size: 0.85rem;
-    margin-top: 4px;
+    color: #ff5252;
+    font-size: 0.75rem;
     font-weight: 500;
-    display: block;
+    margin-bottom: 8px;
+    animation: fadeIn 0.3s ease;
 }
 
-input.input-error {
-    border: 1px solid #d93025;
+.register-form button[type="submit"] {
+    margin-top: 24px;
+    height: 48px;
+    font-size: 16px;
+    background-color: #2582d9;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.register-form button[type="submit"]:hover {
+    background-color: #1d7dd6;
+    transform: translateY(-2px);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

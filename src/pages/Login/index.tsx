@@ -44,6 +44,7 @@ function Login({ onLoginSubmit }: LoginProps) {
                 <Input 
                     type='email' 
                     placeholder='Digite seu email'
+                    className={errors.email ? 'input-error' : ''}
                     {...register("email", { 
                         required: "O e-mail é obrigatório",
                         pattern: {
@@ -58,6 +59,7 @@ function Login({ onLoginSubmit }: LoginProps) {
                 <Input 
                     type='password' 
                     placeholder='Digite sua senha'
+                    className={errors.password ? 'input-error' : ''}
                     {...register("password", { 
                         required: "A senha é obrigatória",
                         minLength: {

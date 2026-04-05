@@ -1,63 +1,94 @@
-.data {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    border-radius: 8px;
-    padding: 5%;
-    margin-top: 3%;
-    background-color: #e9e7e7;
-    color: black;
+    padding: 40px 20px;
+    min-height: calc(100vh - 70px);
 }
 
-.data .button-logout {
-    background-color: #ef4444;
-    color: #FFFFFF;
-    padding: 10px;
+.data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    background-color: #1e1e1e; /* Card escuro */
+    border: 1px solid #333;
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    margin-bottom: 60px;
+}
+
+.data p {
+    font-size: 1rem;
+    color: #e0e0e0;
+    padding: 12px 0;
+    border-bottom: 1px solid #2c2c2c;
+    display: flex;
+    justify-content: space-between;
+}
+
+.data p strong {
+    color: #888;
+    font-weight: 500;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.register-form label {
+    font-size: 0.9rem;
+    color: #d93025;
+    font-weight: 600;
+    margin-top: 8px;
+}
+
+.button-edit, .button-logout, .button-cancel {
+    padding: 12px;
     border-radius: 8px;
-    border: none;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 20px;
+    border: none;
+    transition: all 0.2s ease;
+    width: 100%;
 }
 
-.data .button-logout:hover {
-    background-color: #ef4444cc;
-}
-
-.data .button-edit {
-    background-color: #f6a53b;
+.button-edit {
+    background-color: #3b82f6;
     color: white;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
 }
 
-.data .button-edit:hover {
-    background-color: #f6a53bcc;
+.button-edit:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+.button-logout {
+    background-color: transparent;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+}
+
+.button-logout:hover {
+    background-color: #ef4444;
+    color: white;
 }
 
 .button-cancel {
-    background-color: #6b7280;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
+    background-color: #333;
+    color: #ccc;
 }
 
 .button-cancel:hover {
-    background-color: #6b7280cc;
+    background-color: #444;
 }
 
-.error-message {
-    color: #d93025;
-    font-size: 0.85rem;
-    margin-top: 4px;
-    font-weight: 500;
-    display: block;
-}
-
-input.input-error {
-    border: 1px solid #d93025;
+h2 {
+    margin-bottom: 10px;
 }

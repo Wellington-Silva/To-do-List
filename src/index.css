@@ -32,3 +32,20 @@ a {
 button, input {
   font: inherit;
 }
+
+input {
+    background-color: #c0c0c0;
+    border: 1px solid #444;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+input::placeholder {
+    color: #777;
+}
+
+input:focus {
+    border-color: #d93025;
+    outline: none;
+}

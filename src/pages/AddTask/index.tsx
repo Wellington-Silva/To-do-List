@@ -13,11 +13,11 @@ type taskType = {
 };
 
 function AddTask({ onEventSubmit }: { onEventSubmit: (task: taskType) => void }) {
-    const { 
-        register, 
-        handleSubmit, 
+    const {
+        register,
+        handleSubmit,
         reset,
-        formState: { errors } 
+        formState: { errors }
     } = useForm<taskType>({
         defaultValues: {
             isCompleted: false // Valor padrão inicial
@@ -26,7 +26,7 @@ function AddTask({ onEventSubmit }: { onEventSubmit: (task: taskType) => void })
 
     const onSubmit = (data: taskType) => {
         onEventSubmit({ ...data, isCompleted: false });
-        reset(); 
+        reset();
     };
 
     return (
@@ -35,28 +35,30 @@ function AddTask({ onEventSubmit }: { onEventSubmit: (task: taskType) => void })
                 <Title title="Adicionar Tarefa" />
                 <section className="body">
                     <Label htmlFor='title'>Adicionar título</Label>
-                    <Input 
-                        type='text' 
-                        placeholder="Digite uma nova tarefa..." 
-                        {...register("title", { 
+                    <Input
+                        type='text'
+                        placeholder="Digite uma nova tarefa..."
+                        className={errors.title ? 'input-error' : ''}
+                        {...register("title", {
                             required: "O título é obrigatório",
                             minLength: { value: 3, message: "Título muito curto" }
-                        })} 
+                        })}
                     />
                     {errors.title && <span className="error-message">{errors.title.message}</span>}
-                    
+
                     <Label htmlFor='description'>Adicionar descrição</Label>
-                    <Input 
-                        type='text' 
-                        placeholder="Digite a descrição da tarefa..." 
+                    <Input
+                        type='text'
+                        placeholder="Digite a descrição da tarefa..."
+                        className={errors.title ? 'input-error' : ''}
                         {...register("description", { required: "A descrição é obrigatória" })}
                     />
                     {errors.description && <span className="error-message">{errors.description.message}</span>}
                 </section>
-                
+
                 <Button name="Adicionar" type="submit" />
             </form>
-            <Footer name='Wellington-Solutions.'/>
+            <Footer name='Wellington-Solutions.' />
         </div>
     );
 };

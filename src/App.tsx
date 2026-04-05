@@ -183,26 +183,36 @@ export default function App() {
     };
 
     return (
-        <BrowserRouter>
-            <nav>
-                <Link to="/">Home | </Link>
-                <Link to="/add-task">Tarefa | </Link>
-                {!user ? (
-                    <>
-                        <Link to="/login"> Login</Link> |
-                        <Link to="/register"> Registrar</Link>
-                    </>
-                ) : (
-                    <Link to="/profile"> Perfil</Link>
-                )}
-            </nav>
-            <Routes>
-                <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />} />
-                <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
-                <Route path="/login" element={<Login onLoginSubmit={handleLoginUser} />} />
-                <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} onUpdate={handleUpdateUser} />} />
-                <Route path="/register" element={<Register onEventSubmit={handleRegisterUser} />} />
-            </Routes>
-        </BrowserRouter>
+        <div className="app-layout">
+            <BrowserRouter>
+                <header className="navbar">
+                    <div className="nav-container">
+                        <div className="logo">To Do List</div>
+                        <nav className="nav-links">
+                            <Link to="/">Home</Link>
+                            <Link to="/add-task">Nova Tarefa</Link>
+                            {!user ? (
+                                <>
+                                    <Link to="/login" className="login-btn">Login</Link>
+                                    <Link to="/register" className="register-btn">Registrar</Link>
+                                </>
+                            ) : (
+                                <Link to="/profile">Perfil</Link>
+                            )}
+                        </nav>
+                    </div>
+                </header>
+
+                <main className="main-content">
+                    <Routes>
+                        <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />} />
+                        <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
+                        <Route path="/login" element={<Login onLoginSubmit={handleLoginUser} />} />
+                        <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} onUpdate={handleUpdateUser} />} />
+                        <Route path="/register" element={<Register onEventSubmit={handleRegisterUser} />} />
+                    </Routes>
+                </main>
+            </BrowserRouter>
+        </div>
     );
 };

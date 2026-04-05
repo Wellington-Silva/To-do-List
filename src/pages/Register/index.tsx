@@ -39,6 +39,7 @@ function Register({ onEventSubmit }: { onEventSubmit: (user: userType) => void }
                 <Input 
                     type='text'
                     placeholder='Digite seu nome'
+                    className={errors.password ? 'input-error' : ''}
                     {...register("name", { required: "O nome é obrigatório" })} 
                 />
                 {errors.name && <span className="error-message">{errors.name.message}</span>}
@@ -47,12 +48,14 @@ function Register({ onEventSubmit }: { onEventSubmit: (user: userType) => void }
                 <Input 
                     type='text' 
                     placeholder='Digite seu número de telefone'
+                    className={errors.password ? 'input-error' : ''}
                     {...register("cellphone", { required: "O telefone é obrigatório" })} 
                 />
 
                 <Label htmlFor='birthDate'>Data de Nascimento</Label>
                 <Input 
                     type='date' 
+                    className={errors.password ? 'input-error' : ''}
                     {...register("birthDate", { required: "A data de nascimento é obrigatória" })} 
                 />
 
@@ -60,6 +63,7 @@ function Register({ onEventSubmit }: { onEventSubmit: (user: userType) => void }
                 <Input 
                     type='email' 
                     placeholder='Digite seu email'
+                    className={errors.password ? 'input-error' : ''}
                     {...register("email", { 
                         required: "O email é obrigatório",
                         pattern: {
@@ -74,6 +78,7 @@ function Register({ onEventSubmit }: { onEventSubmit: (user: userType) => void }
                 <Input 
                     type='password' 
                     placeholder='Digite sua senha'
+                    className={errors.password ? 'input-error' : ''}
                     {...register("password", { 
                         required: "A senha é obrigatória",
                         minLength: {

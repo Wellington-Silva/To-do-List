@@ -33,7 +33,7 @@ import { useForm } from 'react-hook-form';
 function Profile({ user, onLogout, onUpdate }: ProfileProps) {
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
-    
+
     const userData: userType = user?.user || user;
 
     const { register, handleSubmit, formState: { errors } } = useForm<userType>({
@@ -57,36 +57,36 @@ function Profile({ user, onLogout, onUpdate }: ProfileProps) {
             <div className="data">
                 {isEditing ? (
                     <form onSubmit={handleSubmit(onSubmit)} className="register-form">
-                        
+
                         <Label htmlFor="name">Nome</Label>
-                        <Input 
-                            {...register("name", { required: "Nome é obrigatório" })} 
+                        <Input
+                            {...register("name", { required: "Nome é obrigatório" })}
                             defaultValue={userData.name}
                         />
                         {errors.name && <span className="error">{errors.name.message}</span>}
 
                         <Label htmlFor="cellphone">Telefone</Label>
-                        <Input 
-                            {...register("cellphone", { required: "Telefone é obrigatório" })} 
+                        <Input
+                            {...register("cellphone", { required: "Telefone é obrigatório" })}
                             defaultValue={userData.cellphone}
                         />
 
                         <Label htmlFor="birthDate">Nascimento</Label>
-                        <Input 
-                            type="date" 
-                            {...register("birthDate")} 
+                        <Input
+                            type="date"
+                            {...register("birthDate")}
                             defaultValue={userData.birthDate}
                         />
 
                         <Label htmlFor="email">Email</Label>
-                        <Input 
-                            {...register("email", { 
+                        <Input
+                            {...register("email", {
                                 required: "Email é obrigatório",
                                 pattern: {
                                     value: /\S+@\S+\.\S+/,
                                     message: "Email inválido"
                                 }
-                            })} 
+                            })}
                             defaultValue={userData.email}
                         />
                         {errors.email && <span className="error">{errors.email.message}</span>}
@@ -100,21 +100,20 @@ function Profile({ user, onLogout, onUpdate }: ProfileProps) {
                     </form>
                 ) : (
                     <>
-                        <p><strong>Nome:</strong> {userData?.name || "Não informado"}</p>
-                        <p><strong>E-mail:</strong> {userData?.email || "Não informado"}</p>
-                        <p><strong>Celular:</strong> {userData?.cellphone || "Não informado"}</p>
-                        <p><strong>Nascimento:</strong> {userData?.birthDate || "Não informado"}</p>
+                        <div className="view-mode">
+                            <p><strong>Nome</strong> <span>{userData?.name || "Não informado"}</span></p>
+                            <p><strong>E-mail</strong> <span>{userData?.email || "Não informado"}</span></p>
+                            <p><strong>Celular</strong> <span>{userData?.cellphone || "Não informado"}</span></p>
+                            <p><strong>Nascimento</strong> <span>{userData?.birthDate || "Não informado"}</span></p>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
-                            <button onClick={() => setIsEditing(true)} className="button-edit">
-                                Editar Perfil
-                            </button>
-                            <button
-                                onClick={handleInternalLogout}
-                                className="button-logout"
-                            >
-                                Sair da Conta
-                            </button>
+                            <div className="actions" style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '30px' }}>
+                                <button onClick={() => setIsEditing(true)} className="button-edit">
+                                    Editar Meus Dados
+                                </button>
+                                <button onClick={handleInternalLogout} className="button-logout">
+                                    Sair do Sistema
+                                </button>
+                            </div>
                         </div>
                     </>
                 )}
