@@ -60,7 +60,7 @@
     margin-top: 8px;
 }
 
-.button-edit, .button-logout, .button-cancel {
+.button-edit, .button-logout {
     padding: 12px;
     border-radius: 8px;
     font-weight: 600;
@@ -94,6 +94,19 @@
 .button-cancel {
     background-color: #333;
     color: #ccc;
+    padding: 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    width: 100%;
+    max-width: 400px;
+    width: fit-content;
+    min-width: 160px;
+    max-width: 100%;
+    height: 50px ;
+    margin-top: auto;
 }
 
 .button-cancel:hover {

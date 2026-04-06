@@ -6,6 +6,8 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import { apiRequest } from './services';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { PrivateRoute } from './components/Private-Route';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 export default function App() {
@@ -65,6 +67,7 @@ export default function App() {
 
             const createdTask = response.task || response;
             setTasks((prevTasks) => [...prevTasks, createdTask]);
+            alert("Tarefa adicionada!");
         } catch (error) {
             alert("Erro ao salvar tarefa no servidor");
         }
@@ -147,8 +150,6 @@ export default function App() {
             };
 
             localStorage.setItem('user_session', JSON.stringify(newSession));
-
-            console.log("Usuário atualizado com sucesso!");
             alert("Perfil atualizado!");
         } catch (error) {
             alert("Não foi possível editar dados do usuário logado");
@@ -208,10 +209,32 @@ export default function App() {
                 <main className="main-content">
                     <Routes>
                         <Route path="/" element={<Login onLoginSubmit={handleLoginUser} />} />
-                        <Route path="/home" element={<Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />} />
-                        <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
-                        <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} onUpdate={handleUpdateUser} />} />
+                        <Route
+                            path="/home"
+                            element={
+                                <PrivateRoute user={user}>
+                                    <Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />
+                                </PrivateRoute>
+                            } />
+
+                        <Route
+                            path="/add-task"
+                            element={
+                                <PrivateRoute user={user}>
+                                    <AddTask onEventSubmit={handleAddTask} />
+                                </PrivateRoute>
+                            } />
+
+                        <Route
+                            path="/profile"
+                            element={
+                                <PrivateRoute user={user}>
+                                    <Profile user={user} onLogout={handleLogout} onUpdate={handleUpdateUser} />
+                                </PrivateRoute>
+                            } />
+
                         <Route path="/register" element={<Register onEventSubmit={handleRegisterUser} />} />
+                        <Route path="*" element={<Navigate to={user ? "/home" : "/"} />} />
                     </Routes>
                 </main>
             </BrowserRouter>

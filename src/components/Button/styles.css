@@ -10,6 +10,13 @@
     transition: all 0.2s ease;
     width: 100%;
     max-width: 400px;
+    width: fit-content;
+    min-width: 160px;
+    max-width: 100%;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button:hover {

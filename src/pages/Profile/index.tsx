@@ -54,8 +54,11 @@ function Profile({ user, onLogout, onUpdate }: ProfileProps) {
         <div className="container">
             <Title title="Perfil" />
             <div className='profile'>
-                {userData?.name.split(' ')
-                    .map(palavra => palavra.charAt(0))
+                {userData?.name
+                    .trim()
+                    .split(/\s+/)
+                    .slice(0, 2)
+                    .map(word => word.charAt(0))
                     .join('')
                     .toUpperCase()
                 }
@@ -109,7 +112,13 @@ function Profile({ user, onLogout, onUpdate }: ProfileProps) {
                             <p><strong>Nome</strong> <span>{userData?.name || "Não informado"}</span></p>
                             <p><strong>E-mail</strong> <span>{userData?.email || "Não informado"}</span></p>
                             <p><strong>Celular</strong> <span>{userData?.cellphone || "Não informado"}</span></p>
-                            <p><strong>Nascimento</strong> <span>{userData?.birthDate || "Não informado"}</span></p>
+                            <p><strong>Nascimento</strong>
+                                <span>{
+                                    userData?.birthDate
+                                        ? new Date(userData.birthDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+                                        : "Não informado"
+                                }</span>
+                            </p>
 
                             <div className="actions" style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '30px' }}>
                                 <button onClick={() => setIsEditing(true)} className="button-edit">
