@@ -75,20 +75,20 @@ export default function App() {
         if (!taskToUpdate) return;
 
         const statusAtual = taskToUpdate.isCompleted ?? taskToUpdate.completed ?? false;
-        const novoStatus = !statusAtual;
+        const newStatus = !statusAtual;
 
-        console.log(`Alterando tarefa ${id} de ${statusAtual} para ${novoStatus}`);
+        console.log(`Alterando tarefa ${id} de ${statusAtual} para ${newStatus}`);
 
         try {
             await apiRequest<any>(`/tasks/${id}`, {
                 method: "PUT",
                 body: JSON.stringify({
-                    isCompleted: novoStatus
+                    isCompleted: newStatus
                 })
             });
 
             setTasks(prevTasks => prevTasks.map(task =>
-                task.id === id ? { ...task, isCompleted: novoStatus, completed: novoStatus } : task
+                task.id === id ? { ...task, isCompleted: newStatus, completed: newStatus } : task
             ));
 
         } catch (error) {
@@ -189,15 +189,17 @@ export default function App() {
                     <div className="nav-container">
                         <div className="logo">To Do List</div>
                         <nav className="nav-links">
-                            <Link to="/">Home</Link>
-                            <Link to="/add-task">Nova Tarefa</Link>
                             {!user ? (
                                 <>
-                                    <Link to="/login" className="login-btn">Login</Link>
+                                    <Link to="/" className="login-btn">Login</Link>
                                     <Link to="/register" className="register-btn">Registrar</Link>
                                 </>
                             ) : (
-                                <Link to="/profile">Perfil</Link>
+                                <>
+                                    <Link to="/home">Home</Link>
+                                    <Link to="/add-task">Nova Tarefa</Link>
+                                    <Link to="/profile">Perfil</Link>
+                                </>
                             )}
                         </nav>
                     </div>
@@ -205,9 +207,9 @@ export default function App() {
 
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={<Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />} />
+                        <Route path="/" element={<Login onLoginSubmit={handleLoginUser} />} />
+                        <Route path="/home" element={<Home tasks={tasks} onToggleTask={handleToggleTask} onDelete={handleDeleteTask} />} />
                         <Route path="/add-task" element={<AddTask onEventSubmit={handleAddTask} />} />
-                        <Route path="/login" element={<Login onLoginSubmit={handleLoginUser} />} />
                         <Route path="/profile" element={<Profile user={user} onLogout={handleLogout} onUpdate={handleUpdateUser} />} />
                         <Route path="/register" element={<Register onEventSubmit={handleRegisterUser} />} />
                     </Routes>

@@ -11,7 +11,7 @@
     flex-direction: column;
     width: 100%;
     max-width: 500px;
-    background-color: #1e1e1e; /* Card escuro */
+    background-color: #1e1e1e;
     border: 1px solid #333;
     border-radius: 16px;
     padding: 30px;
@@ -19,6 +19,17 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     color: #ffffff;
     margin-bottom: 60px;
+}
+
+.container .profile {
+    border-radius: 100%;
+    background-color: rgb(75, 190, 224);
+    color: #FFFFFF;
+    padding: 16px;
+    margin: 20px;
+    font-size: 40px;
+    border: 1px solid rgb(63, 188, 226);
+    box-shadow: 10px rgb(83, 180, 209);
 }
 
 .data p {

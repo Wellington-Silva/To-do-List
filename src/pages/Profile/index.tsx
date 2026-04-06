@@ -45,7 +45,6 @@ function Profile({ user, onLogout, onUpdate }: ProfileProps) {
         navigate('/');
     };
 
-    // A função de salvar recebe os dados já mastigados como objeto
     const onSubmit = (data: userType) => {
         onUpdate({ ...data, id: userData.id });
         setIsEditing(false);
@@ -54,10 +53,16 @@ function Profile({ user, onLogout, onUpdate }: ProfileProps) {
     return (
         <div className="container">
             <Title title="Perfil" />
+            <div className='profile'>
+                {userData?.name.split(' ')
+                    .map(palavra => palavra.charAt(0))
+                    .join('')
+                    .toUpperCase()
+                }
+            </div>
             <div className="data">
                 {isEditing ? (
                     <form onSubmit={handleSubmit(onSubmit)} className="register-form">
-
                         <Label htmlFor="name">Nome</Label>
                         <Input
                             {...register("name", { required: "Nome é obrigatório" })}
